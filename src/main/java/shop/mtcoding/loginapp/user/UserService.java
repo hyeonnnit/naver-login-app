@@ -32,4 +32,7 @@ public class UserService {
         }
     }
 
+    public User kakaoLogin(String code) {
+        return null;
+    }
 }
