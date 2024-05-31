@@ -8,20 +8,17 @@
     <title>Title</title>
 </head>
 <body>
-<h1>메인(인증된) 페이지 : ssar</h1>
+<h1>메인(인증된) 페이지 : {{sessionUser.username}} 유저</h1>
 <hr>
-<div>
-    상품이름 : 바나나 <br>
-    가격 : 1000 <br>
-    재고 : 20 <br>
-    <hr>
-</div>
-<div>
-    상품이름 : 바나나 <br>
-    가격 : 1000 <br>
-    재고 : 20 <br>
-    <hr>
-</div>
+
+{{#shopList}}
+    <div>
+        상품이름 : {{name}} <br>
+        가격 : {{price}} <br>
+        재고 : {{qty}} <br>
+        <hr>
+    </div>
+{{/shopList}}
 
 </body>
 </html>
