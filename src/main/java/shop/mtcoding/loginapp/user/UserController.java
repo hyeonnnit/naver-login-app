@@ -16,6 +16,7 @@ public class UserController {
     // http://localhost:8080/oauth/callback?code=3u9fk
     @GetMapping("/oauth/callback")
     public String oauthCallback(String code) {
+        System.out.println("callback::"+code);
         User sessionUser = userService.kakaoLogin(code);
         session.setAttribute("sessionUser", sessionUser);
         return "redirect:/shop";
