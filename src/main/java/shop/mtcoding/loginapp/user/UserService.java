@@ -51,7 +51,7 @@ public class UserService {
         body.add("grant_type", "authorization_code");
         body.add("client_id", "78LzIOD5hE6wybddS928");
         body.add("client_secret", "kNC_yBAazh");
-        body.add("state", "1234");
+        body.add("redirect_uri", "http://localhost:8080/oauth/callback");
         body.add("code", code);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
@@ -66,7 +66,6 @@ public class UserService {
         System.out.println(response.getBody().toString());
 
         HttpHeaders headers1 = new HttpHeaders();
-        headers1.add("Content-Type", "application/x-www-form-urlencoded;charset=UTF-8");
         headers1.add("Authorization", "Bearer " + response.getBody().getAccessToken());
 
         HttpEntity<MultiValueMap<String, String>> request1 = new HttpEntity<>(headers1);
@@ -80,7 +79,7 @@ public class UserService {
 
         System.out.println("response1: " + response1.getBody().toString());
 
-        String username = "naver_" +response1.getBody().getId();
+        String username = "naver_" + response1.getBody().getProperties().getName();
         User userPS = userRepository.findByUsername(username);
 
         if (userPS != null){
@@ -91,8 +90,7 @@ public class UserService {
             User user = User.builder()
                     .username(username)
                     .password(UUID.randomUUID().toString())
-                    .email(response1.getBody().getProperties().getNickname() + "@nate.com")
-                    .provider("naver")
+                    .email(response1.getBody().getProperties().getName()+"@nate.com")
                     .build();
             User returnUser = userRepository.save(user);
             return  returnUser;

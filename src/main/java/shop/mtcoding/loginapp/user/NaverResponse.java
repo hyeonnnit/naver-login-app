@@ -22,18 +22,16 @@ public class NaverResponse {
     }
 
     @Data
-    public static class NaverUserDTO {
+    public static class NaverUserDTO{
         private Long id;
-        @JsonProperty("connected_at")
-        private Timestamp connectedAt;
+
+        @JsonProperty("response")
         private Properties properties;
 
         @Data
-        class Properties {
-            private String nickname;
-            private String email;
+        class Properties{
+            private String name;
         }
-
     }
 
 }
