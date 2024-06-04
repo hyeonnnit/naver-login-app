@@ -4,9 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import java.security.Timestamp;
-import java.util.Properties;
 
-public class KakaoResponse {
+public class NaverResponse {
     @Data // getter, setter
     public static class TokenDTO {
         @JsonProperty("access_token")
@@ -23,7 +22,7 @@ public class KakaoResponse {
     }
 
     @Data
-    public static class KakaoUserDTO {
+    public static class NaverUserDTO {
         private Long id;
         @JsonProperty("connected_at")
         private Timestamp connectedAt;
@@ -32,6 +31,7 @@ public class KakaoResponse {
         @Data
         class Properties {
             private String nickname;
+            private String email;
         }
 
     }

@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class LoginAppApplication {
+public class NaverLoginAppApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(LoginAppApplication.class, args);
+        SpringApplication.run(NaverLoginAppApplication.class, args);
     }
 
 }

@@ -17,7 +17,7 @@ public class UserController {
     @GetMapping("/oauth/callback")
     public String oauthCallback(String code) {
         System.out.println("callback::"+code);
-        User sessionUser = userService.kakaoLogin(code);
+        User sessionUser = userService.naverLogin(code);
         session.setAttribute("sessionUser", sessionUser);
         return "redirect:/shop";
     }

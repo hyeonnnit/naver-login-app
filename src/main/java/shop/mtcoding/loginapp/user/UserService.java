@@ -41,7 +41,7 @@ public class UserService {
         }
     }
 
-    public User kakaoLogin(String code) {
+    public User naverLogin(String code) {
         RestTemplate rt = new RestTemplate();
 
         HttpHeaders headers = new HttpHeaders();
@@ -49,17 +49,18 @@ public class UserService {
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
-        body.add("client_id", "37339a24509de4e8e1ef8cdb971aea83");
-        body.add("redirect_uri", "http://localhost:8080/oauth/callback");
+        body.add("client_id", "78LzIOD5hE6wybddS928");
+        body.add("client_secret", "kNC_yBAazh");
+        body.add("state", "1234");
         body.add("code", code);
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(body, headers);
 
-        ResponseEntity<KakaoResponse.TokenDTO> response = rt.exchange(
-                "https://kauth.kakao.com/oauth/token",
+        ResponseEntity<NaverResponse.TokenDTO> response = rt.exchange(
+                "https://nid.naver.com/oauth2.0/token",
                 HttpMethod.POST,
                 request,
-                KakaoResponse.TokenDTO.class
+                NaverResponse.TokenDTO.class
         );
 
         System.out.println(response.getBody().toString());
@@ -70,16 +71,16 @@ public class UserService {
 
         HttpEntity<MultiValueMap<String, String>> request1 = new HttpEntity<>(headers1);
 
-        ResponseEntity<KakaoResponse.KakaoUserDTO> response1 = rt.exchange(
-                "http://kapi.kakao.com/v2/user/me",
+        ResponseEntity<NaverResponse.NaverUserDTO> response1 = rt.exchange(
+                "https://openapi.naver.com/v1/nid/me",
                 HttpMethod.GET,
                 request1,
-                KakaoResponse.KakaoUserDTO.class
+                NaverResponse.NaverUserDTO.class
         );
 
         System.out.println("response1: " + response1.getBody().toString());
 
-        String username = "kakao_" +response1.getBody().getId();
+        String username = "naver_" +response1.getBody().getId();
         User userPS = userRepository.findByUsername(username);
 
         if (userPS != null){
@@ -91,7 +92,7 @@ public class UserService {
                     .username(username)
                     .password(UUID.randomUUID().toString())
                     .email(response1.getBody().getProperties().getNickname() + "@nate.com")
-                    .provider("kakako")
+                    .provider("naver")
                     .build();
             User returnUser = userRepository.save(user);
             return  returnUser;
